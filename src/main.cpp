@@ -24,14 +24,8 @@ void setup()   {
 
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 64x48)
-
-
   display.display();
-  //delay(2000);
-
   display.clearDisplay();
-
-
 
   // text display tests
   display.setTextSize(1);
@@ -43,9 +37,6 @@ void setup()   {
   display.display();
   delay(3000);
 
-
-
-
   unsigned status;
 
   display.clearDisplay();
@@ -54,17 +45,15 @@ void setup()   {
   display.setCursor(0,0);
   display.println("init");
   display.display();
-  // default settings
-  //status = bme.begin();
-  status = bme.begin(0x76, &Wire); // nicht 0x77
 
-    if (!status) {
-      display.println("no Sensor");
-      display.display();
-    }
-    display.print(bme.sensorID(),16);
+  status = bme.begin(0x76, &Wire); // nicht 0x77
+  if (!status) {
+    display.println("no Sensor");
     display.display();
-    delay(2000);
+  }
+  display.print(bme.sensorID(),16);
+  display.display();
+  delay(2000);
 }
 
 void printValues() {
@@ -83,7 +72,6 @@ void printValues() {
 
   display.display();
 }
-
 
 void loop() {
   printValues();
