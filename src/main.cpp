@@ -34,8 +34,10 @@ void setup()   {
   display.println("Marcels");
   display.println("Wetter-");
   display.println("Station");
+  display.println("");
+  display.println("BME280");
   display.display();
-  delay(3000);
+  delay(4000);
 
   unsigned status;
 
@@ -46,11 +48,16 @@ void setup()   {
   display.println("init");
   display.display();
 
-  status = bme.begin(0x76, &Wire); // nicht 0x77
+  status = bme.begin(0x76, &Wire); // 0x76 nicht 0x77
+  if (!status) {
+    status = bme.begin(0x77, &Wire); // 0x76 nicht 0x77
+  }
   if (!status) {
     display.println("no Sensor");
     display.display();
   }
+  display.println("SensorID=");
+  display.print("0x");
   display.print(bme.sensorID(),16);
   display.display();
   delay(2000);
