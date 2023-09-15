@@ -89,5 +89,5 @@ void loop() {
   printValues();
   //delay(10);
   digitalWrite(LED_PIN, HIGH);
-  delay(15000);
+  delay(30000);
 }
