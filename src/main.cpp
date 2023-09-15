@@ -19,12 +19,22 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 Adafruit_BME280 bme; // I2C
 
-#define LED_PIN 2
+//#define LED_PIN 2
+
+
+void LEDan() {
+  digitalWrite(BUILTIN_LED, LOW);
+}
+
+void LEDaus() {
+  digitalWrite(BUILTIN_LED, HIGH);
+}
 
 void setup()   {
   Serial.begin(9600);
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW); // einschlaten .... ist invertiert
+  pinMode(BUILTIN_LED, OUTPUT);
+  //digitalWrite(BUILTIN_LED, LOW); // einschlaten .... ist invertiert
+  LEDan();
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 64x48)
   display.display();
@@ -64,7 +74,7 @@ void setup()   {
   display.print(bme.sensorID(),16);
   display.display();
   delay(2000);
-  digitalWrite(LED_PIN, HIGH);
+  LEDaus();
 }
 
 void printValues() {
@@ -85,9 +95,9 @@ void printValues() {
 }
 
 void loop() {
-  digitalWrite(LED_PIN, LOW);
+  LEDan();
   printValues();
   //delay(10);
-  digitalWrite(LED_PIN, HIGH);
+  LEDaus();
   delay(30000);
 }
