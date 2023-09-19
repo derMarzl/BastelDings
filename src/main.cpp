@@ -35,10 +35,12 @@ void LEDaus() {
 }
 
 void setup()   {
-  Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
-  //digitalWrite(BUILTIN_LED, LOW); // einschlaten .... ist invertiert
   LEDan();
+  Serial.begin(115200);
+  
+  //digitalWrite(BUILTIN_LED, LOW); // einschlaten .... ist invertiert
+  
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 64x48) 3C 3D
   display.display();
