@@ -1,0 +1,53 @@
+From 40a61b55ae439a00724dc961c91d68e9ba9131a4 Mon Sep 17 00:00:00 2001
+From: derMarzl <der_marzl@gmx.de>
+Date: Tue, 7 Nov 2023 21:35:55 +0100
+Subject: [PATCH] Temperatur,Feuchte,Druck als globale Variablen und direkt hintereinander auslesen
+
+---
+ src/main.cpp | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/src/main.cpp b/src/main.cpp
+index 35daf39..50900c6 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -20,7 +20,9 @@ Adafruit_SSD1306 display(OLED_RESET);
+ Adafruit_BME280 bme; // I2C
+ 
+ #define LED_PIN 2
+-
++float Temperatur;
++float Feuchte;
++float Druck;
+ 
+ void LEDan() {
+   //digitalWrite(BUILTIN_LED, LOW);
+@@ -80,19 +82,21 @@ void setup()   {
+ }
+ 
+ void printValues() {
++  Temperatur = bme.readTemperature();
++  Feuchte = bme.readHumidity(); // readTemperature in der Funktion auskommentieren
++  Druck = bme.readPressure(); // readTemperature in der Funktion auskommentieren
+   display.clearDisplay();
+   display.setTextSize(1);
+   display.setTextColor(WHITE);
+   display.setCursor(0,0);
+-  display.print(bme.readTemperature(),1);
++  display.print(Temperatur,1);
+   display.println("  C");
+   display.println();
+-  display.print(bme.readHumidity(),1);
++  display.print(Feuchte,1);
+   display.println("  % rF");
+   display.println();
+-  display.print(bme.readPressure() / 100.0F,1);
++  display.print(Druck / 100.0F,1);
+   display.println(" hPa");
+-
+   display.display();
+ }
+ 
+--
+libgit2 1.7.1
+
