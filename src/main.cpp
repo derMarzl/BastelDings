@@ -20,7 +20,9 @@ Adafruit_SSD1306 display(OLED_RESET);
 Adafruit_BME280 bme; // I2C
 
 #define LED_PIN 2
-
+float Temperatur;
+float Feuchte;
+float Druck;
 
 void LEDan() {
   //digitalWrite(BUILTIN_LED, LOW);
@@ -80,19 +82,21 @@ void setup()   {
 }
 
 void printValues() {
+  Temperatur = bme.readTemperature();
+  Feuchte = bme.readHumidity(); // readTemperature in der Funktion auskommentieren
+  Druck = bme.readPressure(); // readTemperature in der Funktion auskommentieren
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.print(bme.readTemperature(),1);
+  display.print(Temperatur,1);
   display.println("  C");
   display.println();
-  display.print(bme.readHumidity(),1);
+  display.print(Feuchte,1);
   display.println("  % rF");
   display.println();
-  display.print(bme.readPressure() / 100.0F,1);
+  display.print(Druck / 100.0F,1);
   display.println(" hPa");
-
   display.display();
 }
 
